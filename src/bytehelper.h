@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <iomanip>
 #include <vector>
+#include <string>
+#include <sstream>
 
 void print_array_as_hex(uint8_t * buf, int bufSize);
 

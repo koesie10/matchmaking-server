@@ -10,6 +10,8 @@ add_executable(matchmaking-testclient ${testclient_files})
 
 target_link_libraries(matchmaking-testclient libmatchmaking proto libprotobuf ${Boost_LIBRARIES})
 
+target_compile_features(matchmaking-testclient PRIVATE cxx_nullptr)
+
 # use static linking (compatibility with protobuf)
 foreach(flag_var
         CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
