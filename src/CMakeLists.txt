@@ -18,6 +18,7 @@ set(matchmaking_files
 add_library(libmatchmaking STATIC ${matchmaking_files})
 
 target_link_libraries(libmatchmaking proto libprotobuf ${Boost_LIBRARIES})
+target_compile_features(libmatchmaking PRIVATE cxx_nullptr)
 
 add_subdirectory(testclient)
 add_subdirectory(server)

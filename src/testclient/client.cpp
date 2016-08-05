@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream> // for ostringstream
 #include <string>
+#include <stdint.h>
 
 #include <boost/asio.hpp>
 #include <boost/program_options.hpp>
