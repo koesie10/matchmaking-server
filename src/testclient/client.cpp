@@ -16,7 +16,7 @@
 
 #include "../bytehelper.h"
 #include "../protocolhelper.h"
-#include "socket_options.h"
+#include "../socket_options.h"
 
 using boost::asio::ip::udp;
 using namespace google::protobuf::io;
