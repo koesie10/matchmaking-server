@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package matchmaking;
+
+message Packet {
+	int32 type = 1; // the type of the coming proto message
+	int32 length = 2; // the length of the proto message
+	bytes checksum = 3; // a checksum, possibly used in the future
+	bytes message = 4; // the actual message
+}

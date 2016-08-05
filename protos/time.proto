@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package matchmaking;
+
+// 0x02
+message TimeRequest {
+	string name = 1;
+	int32 uid = 2;
+}
+
+// 0x03
+message TimeResponse {
+	string time = 1;
+}
