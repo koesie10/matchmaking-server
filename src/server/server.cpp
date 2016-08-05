@@ -20,22 +20,17 @@
 #include "../protocolhelper.h"
 
 using boost::asio::ip::udp;
-using namespace google::protobuf::io;
-using namespace google::protobuf;
-
-namespace po = boost::program_options;
 
 std::string make_daytime_string()
 {
-	using namespace std; // For time_t, time and ctime;
-	time_t now = time(0);
-	return ctime(&now);
+	std::time_t now = std::time(0);
+	return std::ctime(&now);
 }
 
 // Returns the packet that should be sent back, or nullptr if none needs to be send back
 // TODO: Move to a class
 matchmaking::Packet * ParsePacket(matchmaking::Packet * packet) {
-	Message * message;
+	google::protobuf::Message * message;
 
 	switch (packet->type()) {
 	case 0x01:
@@ -197,15 +192,15 @@ int main(int argc, char* argv[])
 {
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-	po::options_description desc("Allowed options");
+	boost::program_options::options_description desc("Allowed options");
 	desc.add_options()
 		("help", "produce help message")
-		("port", po::value<std::uint16_t>()->default_value(54001), "set port to bind to")
+		("port", boost::program_options::value<std::uint16_t>()->default_value(54001), "set port to bind to")
 		;
 
-	po::variables_map vm;
-	po::store(po::parse_command_line(argc, argv, desc), vm);
-	po::notify(vm);
+	boost::program_options::variables_map vm;
+	boost::program_options::store(boost::program_options::parse_command_line(argc, argv, desc), vm);
+	boost::program_options::notify(vm);
 
 	if (vm.count("help")) {
 		std::cout << desc << "\n";

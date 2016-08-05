@@ -19,26 +19,23 @@
 #include "socket_options.h"
 
 using boost::asio::ip::udp;
-using namespace google::protobuf::io;
-
-namespace po = boost::program_options;
 
 int main(int argc, char* argv[])
 {
-	po::options_description desc("Allowed options");
+	boost::program_options::options_description desc("Allowed options");
 	desc.add_options()
 		("help", "produce help message")
-		("name", po::value<std::string>(), "set name")
-		("uid", po::value<int>(), "set uid")
-		("hostname", po::value<std::string>()->default_value("localhost"), "set hostname to send the packet to")
-		("port", po::value<std::uint16_t>()->default_value(54001), "set port to send the packet to")
+		("name", boost::program_options::value<std::string>(), "set name")
+		("uid", boost::program_options::value<int>(), "set uid")
+		("hostname", boost::program_options::value<std::string>()->default_value("localhost"), "set hostname to send the packet to")
+		("port", boost::program_options::value<std::uint16_t>()->default_value(54001), "set port to send the packet to")
 		("use-ipv6", "use ipv6 to send the packet")
 		("save-to-file", "save the packet to a file")
 		;
 
-	po::variables_map vm;
-	po::store(po::parse_command_line(argc, argv, desc), vm);
-	po::notify(vm);
+	boost::program_options::variables_map vm;
+	boost::program_options::store(boost::program_options::parse_command_line(argc, argv, desc), vm);
+	boost::program_options::notify(vm);
 
 	if (vm.count("help")) {
 		std::cout << desc << "\n";
@@ -86,8 +83,8 @@ int main(int argc, char* argv[])
 			std::ofstream fs;
 			fs.open(out.str().c_str(), std::fstream::out | std::fstream::binary);
 
-			ZeroCopyOutputStream* file_raw_output = new OstreamOutputStream(&fs);
-			CodedOutputStream* file_coded_output = new CodedOutputStream(file_raw_output);
+			google::protobuf::io::ZeroCopyOutputStream* file_raw_output = new google::protobuf::io::OstreamOutputStream(&fs);
+			google::protobuf::io::CodedOutputStream* file_coded_output = new google::protobuf::io::CodedOutputStream(file_raw_output);
 
 			WriteProtocolMessage(file_coded_output, &packet);
 
